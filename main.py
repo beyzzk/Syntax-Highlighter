@@ -2,32 +2,26 @@ import tkinter as tk
 import re
 
 # CFG
-# statement -> print_stmt|if_else_stmt|assign_stmt
+# statement -> print_stmt|if_else_stmt|assign_stmt|typed_var_decl|while_stmt|for_stmt;
 # print_stmt -> 'print' '(' string ')' ';'
 # if_stmt -> 'if' '(' condition ')' '{' statement '}' ['else' '{' statement'}']
 # condition -> identifier operator number ';'
 # assign_stmt -> identifier '=' number ';'
-# identifier -> A-Z|a-z|_
-#statement → type identifier = number ;
-#type      → 'int' | 'float' | 'double'
-#function_decl → type identifier '(' parameters ')' '{' statement '}'
-#parameters     → [ type identifier { ',' type identifier } ]
-#type           → 'int' | 'float' | 'double'
-#statement      → print_stmt | assign_stmt | if_stmt | typed_var_decl
-#statement → while_stmt | for_stmt | ...
-#while_stmt → 'while' '(' condition ')' '{' statement '}'
-#for_stmt   → 'for' '(' init ';' condition ';' update ')' '{' statement '}'
-#init      → typed_variable_decl
-#condition → identifier operator number
-#update    → identifier '=' expression
-
+#statement -> type identifier = number ;
+#type -> 'int' | 'float' | 'double';
+#function_decl -> type identifier '(' parameters ')' '{' statement '}';
+#parameters -> [ type identifier { ',' type identifier } ];
+#while_stmt -> 'while' '(' condition ')' '{' statement '}';
+#for_stmt -> 'for' '(' init ';' condition ';' update ')' '{' statement '}';
+#init -> typed_variable_decl;
+#update -> identifier '=' expression;
 
 #token tiplerine renk atama
 TOKEN_COLORS={
     "keyword":"blue",
     "identifier":"black",
     "number":"darkorange",
-    "string":"green",
+    "string":"darkcyan",
     "operator":"red",
     "delimiter":"grey",
     "function":"purple",
@@ -44,8 +38,8 @@ def lexer(code):
     token_specification=[
         ("single_comment", r'//.*'),
         ("float_number", r'\d+\.\d+'),
-        ("number", r'\d+'), #bir veya daha fazla rakamsa number d digitten geliyor
-        ("string", r'"[^"]*"'), # " ile basla çift tırnak dışındakileri al " ile bitir
+        ("number", r'\d+'),
+        ("string", r'"[^"]*"'),
         ("identifier", r'[a-zA-Z_]\w*'), 
         ("operator", r'==|!=|<=|>=|[+\-*/=<>]'),
         ("delimiter", r'[();{}]'),
@@ -78,7 +72,7 @@ def parser(tokens,label,text_widget):
             old_i = i
             if parser_func():
                 return True
-            i = old_i  #Başarısız olduysa geri sarıcak
+            i = old_i  #başarısız olduysa geri sarıcak
         return False
 
 
@@ -158,7 +152,7 @@ def parser(tokens,label,text_widget):
             return False
 
         if not match("number"):
-            return False  #hem int hem float burada eşleşebilir
+            return False  #hem int hem float burada eşleşebiliyor
 
         value = tokens[i-1][1]
 
@@ -188,7 +182,7 @@ def parser(tokens,label,text_widget):
         if not match("delimiter", "("):
             return False
 
-        #Parametreler(isteğe bağlı)
+        #parametreler(isteğe bağlı)
         if match("keyword"):  
             param_type = tokens[i - 1][1]
             if param_type not in ("int", "float", "double"):
@@ -207,9 +201,9 @@ def parser(tokens,label,text_widget):
         if not match("delimiter", ")"):
             return False
 
-        #Burada ya gövdeyle başlar ya da noktalı virgülle
+        #burada ya gövdeyle başlar ya da noktalı virgülle
         if match("delimiter", "{"):
-            #Gövde:tek statement destekliyor
+            #gövde:tek statement destekliyor
             if not try_parse(
                 parse_print_stmt,
                 parse_assign_stmt,
@@ -222,13 +216,12 @@ def parser(tokens,label,text_widget):
             if not match("delimiter", "}"):
                 return False
         elif match("delimiter", ";"):
-            #Gövdesiz fonksiyon bildirimi
+            #gövdesiz fonksiyon bildirimi
             pass
         else:
             return False
 
         return True
-
 
     def parse_while_stmt():
         if not match("keyword", "while"):
@@ -263,7 +256,6 @@ def parser(tokens,label,text_widget):
             return False
         if not match("delimiter", "("):
             return False
-
         if not parse_typed_variable_decl():
             return False
         if not match("identifier"):
@@ -344,10 +336,10 @@ root=tk.Tk()
 root.title("Syntax Highlighter")
 text=tk.Text(root, font=("Consolas",12))
 text.pack(expand=True, fill='both')
-#guida syntax ok/error için
+#guida syntax ok/error yazısı için
 status_label = tk.Label(root, text="", font=("Consolas", 12))
 status_label.pack()
-#guida temizle butonu için
+#guida temizle butonu için 
 def clear_all():
     text.delete("1.0", "end")
     status_label.config(text="")
