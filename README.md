@@ -36,4 +36,4 @@ Kullanıcı tarafından girilen basit programlama diline ait kodları **renklend
 
 
 ## Demo Video
-[Projenin çalışma videosunu buradan izleyebilirsiniz]() 
+[Projenin çalışma videosunu buradan izleyebilirsiniz](https://www.youtube.com/watch?v=Y1HQZ_E6YX8) 
