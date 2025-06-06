@@ -20,7 +20,7 @@ Kullanıcı tarafından girilen basit programlama diline ait kodları **renklend
 -------------------------------------------------------------------------------------  
 
 ## Yanlış çalışan kodda GUI ekranı
-- Buradaki örnekte print ifadesi içerisindeki " unutulduğundan gui ekranında bize "Syntax Error" yazmaktadır.  
+- Buradaki örnekte print ifadesi içerisindeki çift tırnak(") unutulduğundan gui ekranında bize "Syntax Error" yazmaktadır.  
 ![yanlış kod](img/gui_error.png)  
 
 
