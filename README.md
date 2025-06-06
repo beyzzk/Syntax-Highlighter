@@ -32,7 +32,7 @@ Kullanıcı tarafından girilen basit programlama diline ait kodları **renklend
 3.Terminal veya komut istemcisinde çalıştırın veya indirdiğiniz dosyayı bilgisayarınızda kullandığınız bir ide ile açıp main.py dosyasını çalıştırın.  
 
 ## Rapor
-[Proje Raporunu Buradan İndirin](./final_rapor.pdf)
+[Syntax Highlighter Proje Final Raporunu Buradan Görebilirsiniz](./final_rapor.pdf)
 
 
 ## Demo Video
