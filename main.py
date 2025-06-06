@@ -58,6 +58,10 @@ def lexer(code):
         value=match.group()
         if kind=="identifier" and value in KEYWORDS:
             kind="keyword"
+        if kind=="identifier":
+            end_pos=match.end()
+            if end_pos<len(code) and code[end_pos]=='(':
+                kind="function"
         if kind == "float_number":
             kind = "number"
         if kind !="whitespace":
@@ -67,6 +71,16 @@ def lexer(code):
 def parser(tokens,label,text_widget):
     i = 0
     length = len(tokens)
+
+    def try_parse(*parsers):
+        nonlocal i
+        for parser_func in parsers:
+            old_i = i
+            if parser_func():
+                return True
+            i = old_i  #Başarısız olduysa geri sarıcak
+        return False
+
 
     text_widget.tag_remove("syntax_error", "1.0", "end")
 
@@ -196,11 +210,13 @@ def parser(tokens,label,text_widget):
         #Burada ya gövdeyle başlar ya da noktalı virgülle
         if match("delimiter", "{"):
             #Gövde:tek statement destekliyor
-            if not (
-                parse_print_stmt() or
-                parse_assign_stmt() or
-                parse_typed_variable_decl() or
-                parse_if_stmt()
+            if not try_parse(
+                parse_print_stmt,
+                parse_assign_stmt,
+                parse_typed_variable_decl,
+                parse_if_stmt,
+                parse_while_stmt,
+                parse_for_stmt
             ):
                 return False
             if not match("delimiter", "}"):
@@ -289,8 +305,9 @@ def parser(tokens,label,text_widget):
         if tokens[i][0] == "single_comment":
             i += 1
             continue
-        if not (parse_print_stmt() or parse_assign_stmt() or parse_if_stmt() or parse_typed_variable_decl() or parse_function_decl()
-        or parse_while_stmt() or parse_for_stmt()):
+        if not try_parse(parse_print_stmt, parse_assign_stmt, parse_if_stmt,
+                        parse_typed_variable_decl, parse_function_decl,
+                        parse_while_stmt, parse_for_stmt):
             label.config(text="Syntax Error", fg="red")
             return False
 
