@@ -14,6 +14,15 @@ Kullanıcı tarafından girilen basit programlama diline ait kodları **renklend
 - Kod yazarken gerçek zamanlı syntax kontrolü ve renkli token vurgulama  
 - Basit hata mesajları ve "Syntax OK" veya "Syntax Error" göstergesi
 
+## Doğru çalışan kodda GUI ekranı
+![Dogru kod](img/gui_ok.png)  
+
+-------------------------------------------------------------------------------------  
+
+## Yanlış çalışan kodda GUI ekranı
+- Buradaki örnekte print ifadesi içerisindeki " unutulduğundan gui ekranında bize "Syntax Error" yazmaktadır.  
+![yanlış kod](img/gui_error.png)  
+
 
 ## Kullanılan Teknolojiler
 - python 3.x  
@@ -21,7 +30,6 @@ Kullanıcı tarafından girilen basit programlama diline ait kodları **renklend
 - re (Regular Expressions) – Sözcüksel analiz (lexer) işlemleri için düzenli ifadeler kullanılmıştır.  
 
 ## Mevcut Problemler ve Eksiklikler 
-- Uygun şekilde yazılan herhangi bir fonksiyon yapısını(gövdeli veya gövdesiz) tanıyıp doğru bir şekilde renk ataması yapıyor ancak gui üzerinde Syntax Error yazısı gösteriyor.
 - Fonksiyon,if-else bloğu,for döngüsü ve while döngüsü yapılarında gövdede yalnızca tek statement destekliyor.
 - Yalnızca tek satırlı yorum satırlarını algılayabiliyor.
 
