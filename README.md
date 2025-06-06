@@ -28,7 +28,12 @@ Kullanıcı tarafından girilen basit programlama diline ait kodları **renklend
 
 ## Kurulum
 1.Python 3.x sisteminize kurulu değilse python.org adresinden indirip kurun.  
-2.Bu projeyi yerel makinenize indirin ya da klonlayın:  
+2.Bu projeyi yerel makinenize indirin ya da klonlayın
 3.Terminal veya komut istemcisinde çalıştırın veya indirdiğiniz dosyayı bilgisayarınızda kullandığınız bir ide ile açıp main.py dosyasını çalıştırın.  
 
+## Rapor
+[Proje Raporunu Buradan İndirin](./final_rapor.pdf)
 
+
+## Demo Video
+[Projenin çalışma videosunu buradan izleyebilirsiniz]() 
